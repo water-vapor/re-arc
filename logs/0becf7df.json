@@ -1,0 +1,13 @@
+{
+  "working_dir": "/home/vapor/projects/realm/re-arc-2/re-arc",
+  "prompt": "Please do the task stated in `/home/vapor/projects/realm/re-arc-2/re-arc/arc2_generation_prompts.md`, where the TASK_ID is `0becf7df`.",
+  "thread_id": "019cf9de-d2ae-72b3-8b7b-acd97ae73423",
+  "codex_response": "Implemented the `0becf7df` ARC2 package. The rule is: the upper-left `2x2` corner is a fixed key, with the top-row colors swapped everywhere else and the bottom-row colors swapped everywhere else. The summary hint was used, because it matched all official examples exactly. No new shared primitive was needed.\n\nThe verifier is in [verifier.py](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/tasks/task_0becf7df/verifier.py#L4) and follows the original RE-ARC style with two `switch` calls plus corner restoration. The generator is in [generator.py](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/tasks/task_0becf7df/generator.py#L57); it builds sparse `10x10` scenes with a preserved `2x2` key and a connected multicolor cluster grown from transformed seed layouts defined in [helpers.py](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/tasks/task_0becf7df/helpers.py#L4). Package exports are wired in [__init__.py](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/tasks/task_0becf7df/__init__.py#L1).\n\nValidation passed: `python -m arc2.shared.verify --task 0becf7df` reported `4/4` official examples passed, and `python -m arc2.shared.build --task 0becf7df --n-examples 1000` produced [task.json](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/artifacts/0becf7df/task.json), [originals.png](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/artifacts/0becf7df/previews/originals.png), [preview_01.png](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/artifacts/0becf7df/previews/preview_01.png), [preview_02.png](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/artifacts/0becf7df/previews/preview_02.png), [preview_03.png](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/artifacts/0becf7df/previews/preview_03.png), and 1000 example files in [examples/](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/artifacts/0becf7df/examples). I opened the generated preview sheet and it looks in-family with the official task.",
+  "usage": {
+    "input_tokens": 1192874,
+    "cached_input_tokens": 969600,
+    "output_tokens": 23187
+  },
+  "puzzle_id": "0becf7df",
+  "status": "completed"
+}
