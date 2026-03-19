@@ -1,0 +1,13 @@
+{
+  "working_dir": "/home/vapor/projects/realm/re-arc-2/re-arc",
+  "prompt": "Please do the task stated in `/home/vapor/projects/realm/re-arc-2/re-arc/arc2_generation_prompts.md`, where the TASK_ID is `195ba7dc`.",
+  "thread_id": "019d04aa-ae2e-7091-b301-4f6c977b0730",
+  "codex_response": "Implemented `195ba7dc` as a new ARC2 task package. The rule is: split the 5x13 input around the center red divider column, compare the two 5x6 halves cellwise, and output `1` wherever either half has `7`, else `0`.\n\nThe summary hint was used because it matched the official examples. No new primitive was needed. The generator keeps the official family shape by fixing the `5x13` layout, using a solid red divider, producing dense orange/black masks on both halves, and enforcing nontrivial `left-only`, `right-only`, and `both` contributions so the OR output stays in-family.\n\nVerified results:\n- `pass 195ba7dc: 5/5 official examples passed`\n- `pass 195ba7dc: 1000/1000 generated examples passed`\n- Preview sheet checked visually against the originals\n\nFiles:\n- [__init__.py](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/tasks/task_195ba7dc/__init__.py)\n- [verifier.py](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/tasks/task_195ba7dc/verifier.py)\n- [generator.py](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/tasks/task_195ba7dc/generator.py)\n\nArtifacts:\n- [task.json](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/artifacts/195ba7dc/task.json)\n- [originals.png](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/artifacts/195ba7dc/previews/originals.png)\n- [preview_01.png](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/artifacts/195ba7dc/previews/preview_01.png)\n- [preview_02.png](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/artifacts/195ba7dc/previews/preview_02.png)\n- [preview_03.png](/home/vapor/projects/realm/re-arc-2/re-arc/arc2/artifacts/195ba7dc/previews/preview_03.png)",
+  "usage": {
+    "input_tokens": 1116737,
+    "cached_input_tokens": 973696,
+    "output_tokens": 12053
+  },
+  "puzzle_id": "195ba7dc",
+  "status": "completed"
+}
