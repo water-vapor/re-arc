@@ -154,20 +154,26 @@ def _render_input_c61be7dc(
     orientation: str,
     gap: Integer,
     profile: tuple[Integer, ...],
+    center: IntegerTuple,
 ) -> Grid:
-    x0 = divide(side, TWO)
-    x1 = (x0, x0)
+    x0, x1 = center
     x2 = canvas(BG_C61BE7DC, (side, side))
     if orientation == "v":
-        x3 = connect((ZERO, subtract(x0, gap)), (decrement(side), subtract(x0, gap)))
-        x4 = connect((ZERO, add(x0, gap)), (decrement(side), add(x0, gap)))
-        x5 = connect((x0, ZERO), (x0, decrement(side)))
-        x6 = _profile_patch_vertical_c61be7dc(x1, profile)
+        x3 = connect((ZERO, subtract(x1, gap)), (decrement(side), subtract(x1, gap)))
+        x4 = connect((ZERO, add(x1, gap)), (decrement(side), add(x1, gap)))
+        x5 = combine(
+            connect((x0, ZERO), (x0, subtract(x1, gap))),
+            connect((x0, add(x1, gap)), (x0, decrement(side))),
+        )
+        x6 = _profile_patch_vertical_c61be7dc(center, profile)
     else:
         x3 = connect((subtract(x0, gap), ZERO), (subtract(x0, gap), decrement(side)))
         x4 = connect((add(x0, gap), ZERO), (add(x0, gap), decrement(side)))
-        x5 = connect((ZERO, x0), (decrement(side), x0))
-        x6 = _profile_patch_horizontal_c61be7dc(x1, profile)
+        x5 = combine(
+            connect((ZERO, x1), (subtract(x0, gap), x1)),
+            connect((add(x0, gap), x1), (decrement(side), x1)),
+        )
+        x6 = _profile_patch_horizontal_c61be7dc(center, profile)
     x7 = fill(x2, SEP_C61BE7DC, x3)
     x8 = fill(x7, SEP_C61BE7DC, x4)
     x9 = fill(x8, SEP_C61BE7DC, x5)
@@ -178,24 +184,25 @@ def _render_output_c61be7dc(
     side: Integer,
     orientation: str,
     count: Integer,
+    center: IntegerTuple,
 ) -> Grid:
-    x0 = divide(side, TWO)
-    x1 = canvas(BG_C61BE7DC, (side, side))
-    x2 = divide(decrement(count), TWO)
+    x0, x1 = center
+    x2 = canvas(BG_C61BE7DC, (side, side))
+    x3 = divide(decrement(count), TWO)
     if orientation == "v":
-        x3 = connect((ZERO, decrement(x0)), (decrement(side), decrement(x0)))
-        x4 = connect((ZERO, increment(x0)), (decrement(side), increment(x0)))
-        x5 = connect((x0, ZERO), (x0, decrement(side)))
-        x6 = connect((subtract(x0, x2), x0), (add(x0, x2), x0))
+        x4 = connect((ZERO, decrement(x1)), (decrement(side), decrement(x1)))
+        x5 = connect((ZERO, increment(x1)), (decrement(side), increment(x1)))
+        x6 = connect((x0, ZERO), (x0, decrement(side)))
+        x7 = connect((subtract(x0, x3), x1), (add(x0, x3), x1))
     else:
-        x3 = connect((decrement(x0), ZERO), (decrement(x0), decrement(side)))
-        x4 = connect((increment(x0), ZERO), (increment(x0), decrement(side)))
-        x5 = connect((ZERO, x0), (decrement(side), x0))
-        x6 = connect((x0, subtract(x0, x2)), (x0, add(x0, x2)))
-    x7 = fill(x1, SEP_C61BE7DC, x3)
-    x8 = fill(x7, SEP_C61BE7DC, x4)
+        x4 = connect((decrement(x0), ZERO), (decrement(x0), decrement(side)))
+        x5 = connect((increment(x0), ZERO), (increment(x0), decrement(side)))
+        x6 = connect((ZERO, x1), (decrement(side), x1))
+        x7 = connect((x0, subtract(x1, x3)), (x0, add(x1, x3)))
+    x8 = fill(x2, SEP_C61BE7DC, x4)
     x9 = fill(x8, SEP_C61BE7DC, x5)
-    return fill(x9, FG_C61BE7DC, x6)
+    x10 = fill(x9, SEP_C61BE7DC, x6)
+    return fill(x10, FG_C61BE7DC, x7)
 
 
 def generate_c61be7dc(
@@ -213,8 +220,17 @@ def generate_c61be7dc(
         x5 = subtract(double(x4), ONE)
         x6 = _sample_profile_c61be7dc(x0, x5)
         x7 = sum(x6)
-        x8 = _render_input_c61be7dc(x0, x1, x4, x6)
-        x9 = _render_output_c61be7dc(x0, x1, x7)
-        if verify_c61be7dc(x8) != x9:
+        x8 = halve(decrement(x7))
+        x9 = halve(decrement(size(x6)))
+        if x1 == "v":
+            x10 = randint(max(x8, x9), subtract(decrement(x0), max(x8, x9)))
+            x11 = randint(x4, subtract(decrement(x0), x4))
+        else:
+            x10 = randint(x4, subtract(decrement(x0), x4))
+            x11 = randint(max(x8, x9), subtract(decrement(x0), max(x8, x9)))
+        x12 = (x10, x11)
+        x13 = _render_input_c61be7dc(x0, x1, x4, x6, x12)
+        x14 = _render_output_c61be7dc(x0, x1, x7, x12)
+        if verify_c61be7dc(x13) != x14:
             continue
-        return {"input": x8, "output": x9}
+        return {"input": x13, "output": x14}

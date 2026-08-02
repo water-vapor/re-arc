@@ -50,14 +50,9 @@ def blank_panel_ba1aa698(
 
 def predict_next_top_ba1aa698(
     rows: Tuple,
-    motif: Object,
-    border_color: Integer,
 ) -> Integer:
     x0 = rows[ONE] - rows[ZERO]
-    x1 = rows[-ONE] + x0
-    x2 = equality(color(motif), border_color)
-    x3 = branch(x2, sign(x0), ZERO)
-    return x1 + x3
+    return rows[-ONE] + x0
 
 
 def paint_motif_at_top_ba1aa698(

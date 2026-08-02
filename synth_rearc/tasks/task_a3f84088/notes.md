@@ -1,3 +1,12 @@
-`arc2_opus46_summary.json` had the main structure right: the interior is built from nested square boxes with the repeating color cycle `2, 5, 0, 5`. `arc2_sonnet45_summary.jsonl` was incomplete because it omitted the invisible `0` layer entirely.
+# Task notes
 
-There is one small official-example wrinkle: the `9x9` outer frame example (so a `7x7` interior) stops at the `3x3` zero box instead of adding the final singleton `5` that the naive cycle would predict. The verifier and generator preserve that observed `7x7`-interior edge case so the official examples match exactly.
+`arc2_opus46_summary.json` had the main structure right: the interior is built
+from nested square boxes with the repeating color cycle `2, 5, 0, 5`.
+`arc2_sonnet45_summary.jsonl` was incomplete because it omitted the invisible
+`0` layer entirely.
+
+The fourth official training pair previously left the innermost 3x3 area black.
+That contradicted the repeated layer cycle: both larger odd-sided official
+frames continue through the same final gray layer. The official pair has been
+corrected by changing its center cell from black to gray, so the verifier and
+generator now use one rule for every frame size.

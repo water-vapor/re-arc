@@ -6,10 +6,7 @@ COLOR_CYCLE_A3F84088 = (TWO, FIVE, ZERO, FIVE)
 
 def _layer_count_a3f84088(side: Integer) -> Integer:
     x0 = subtract(side, TWO)
-    x1 = divide(add(x0, ONE), TWO)
-    if x0 == SEVEN:
-        return decrement(x1)
-    return x1
+    return divide(add(x0, ONE), TWO)
 
 
 def _frame_patch_a3f84088(

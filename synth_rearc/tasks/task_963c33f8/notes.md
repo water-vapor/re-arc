@@ -1,10 +1,8 @@
-The summary hints were only partly useful and I treated them as untrusted.
+The stable rule is column-based:
 
-The Sonnet summary is materially wrong: the official examples are not a generic "corner redistribution" over all 5-objects. The stable rule is column-based:
+- The top 3x3 marker block has two full `9` rows.
+- Treat its three columns as independent vertical rods.
+- A `9,9,1` rod falls straight down in the same column until its `1` tip is immediately above the first `5`; without a `5` below it, the rod reaches the bottom.
+- A `9,9,9` rod reaches the bottom in the same column.
 
-- The top 3x3 marker block always has two full `9` rows.
-- Each of its three columns moves independently.
-- A `9,9,1` column drops in the same column and stops immediately above the first `5` encountered below it.
-- A `9,9,9` column falls to the bottom of the grid; one official example shifts the rightmost all-`9` column one step right to match a two-cell bottom support, and another trims two cells from a long bottom bar after the landing.
-
-The Opus summary was directionally closer than the Sonnet summary because it at least separated the `...1` columns from the all-`9` columns, but it was still too vague about the actual placement mechanics and did not capture the pair-2 cleanup behavior.
+The original official data had two isolated annotation errors: train pair 1 deleted two cells from a bottom `5` bar, and train pair 2 shifted its all-`9` rod one column right. The corrected outputs now follow the same rule as train pair 0 and the test pair. The verifier and generator therefore use only the uniform same-column rule.

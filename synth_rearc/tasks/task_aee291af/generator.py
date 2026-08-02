@@ -72,7 +72,11 @@ def _mutate_pattern_aee291af(
         x5 = frozenset() if x4 == ZERO else frozenset(sample(x1, x4))
         x6 = difference(red_cells, x3)
         x7 = combine(x6, x5)
-        if both(greater(len(x7), ONE), x7 != red_cells):
+        x8 = equality(len(interior), FOUR)
+        x9 = branch(x8, TWO, FIVE)
+        x10 = branch(x8, THREE, FIVE)
+        x11 = both(greater(len(x7), decrement(x9)), greater(increment(x10), len(x7)))
+        if both(x11, x7 != red_cells):
             return x7
 
 
@@ -108,19 +112,19 @@ def generate_aee291af(
     diff_ub: float,
 ) -> dict:
     while True:
-        x0 = choice((FOUR, FIVE, FIVE, FIVE, FIVE))
-        x1 = choice((THREE, FOUR, FOUR))
+        x0 = choice((FOUR, FIVE))
+        x1 = choice((THREE, FOUR, FOUR, FIVE))
         x2 = _interior_indices_aee291af(x0)
-        x3 = min(len(x2), FOUR)
-        x4 = choice(tuple(range(TWO, x3 + ONE)))
+        x3 = branch(equality(x0, FOUR), (THREE, FOUR), (FOUR, FIVE))
+        x4 = choice(x3)
         x5 = frozenset(sample(x2, x4))
         x6 = _mutate_pattern_aee291af(x5, x2)
         x7 = _pattern_aee291af(x0, x5)
         x8 = _pattern_aee291af(x0, x6)
-        x9 = max(16, add(multiply(x0, THREE), subtract(x1, THREE)))
-        x10 = 22
-        x11 = randint(x9, x10)
-        x12 = randint(x9, x10)
+        x9 = add(multiply(x0, TWO), EIGHT)
+        x10 = x9
+        x11 = x9
+        x12 = x10
         x13 = canvas(ONE, (x11, x12))
         x14 = tuple([x7] * subtract(x1, ONE) + [x8])
         x15 = list(x14)
@@ -160,31 +164,39 @@ def generate_aee291af(
                 continue
             x31 = frozenset(sample(x29, x30))
             x25 = _fill_fragment_aee291af(x25, x31)
-        x32 = unifint(diff_lb, diff_ub, (add(TWO, x0), add(EIGHT, multiply(TWO, x0))))
-        x33 = ZERO
-        x34 = ZERO
-        while both(greater(x32, x33), greater(300, x34)):
-            x35 = choice(NOISE_SHAPES_AEE291AF)
-            x36 = height(x35)
-            x37 = width(x35)
-            x38 = randint(ZERO, subtract(x11, x36))
-            x39 = randint(ZERO, subtract(x12, x37))
-            x40 = shift(x35, (x38, x39))
-            x41 = all(index(x25, idx) == ONE for idx in x40)
-            if x41:
-                x25 = _fill_fragment_aee291af(x25, x40)
-                x33 = add(x33, len(x40))
-            x34 = increment(x34)
-        x42 = _candidate_windows_aee291af(x25)
-        x43 = Counter(x42)
-        x44 = both(equality(len(x42), x1), equality(len(x43), TWO))
-        if not x44:
+        x32 = difference(asindices(x25), x17)
+        x33 = len(x32)
+        x34 = divide(multiply(x33, THREE), 25)
+        x35 = divide(multiply(x33, FIVE), 25)
+        x36 = unifint(diff_lb, diff_ub, (x34, x35))
+        x37 = len(intersection(ofcolor(x25, EIGHT), x32))
+        x38 = ZERO
+        while both(greater(x36, x37), greater(600, x38)):
+            x39 = choice(NOISE_SHAPES_AEE291AF)
+            x40 = height(x39)
+            x41 = width(x39)
+            x42 = randint(ZERO, subtract(x11, x40))
+            x43 = randint(ZERO, subtract(x12, x41))
+            x44 = shift(x39, (x42, x43))
+            x45 = all(index(x25, idx) == ONE for idx in x44)
+            if x45:
+                x25 = _fill_fragment_aee291af(x25, x44)
+                x37 = add(x37, len(x44))
+            x38 = increment(x38)
+        x46 = _candidate_windows_aee291af(x25)
+        x47 = apply(height, x46)
+        x48 = maximum(x47)
+        x49 = matcher(height, x0)
+        x50 = sfilter(x46, x49)
+        x51 = Counter(x50)
+        x52 = both(equality(x48, x0), both(equality(len(x50), x1), equality(len(x51), TWO)))
+        if not x52:
             continue
-        x45 = x43[x7]
-        x46 = x43[x8]
-        x47 = equality(x45, subtract(x1, ONE))
-        x48 = equality(x46, ONE)
-        x49 = both(x47, x48)
-        if not x49:
+        x53 = x51[x7]
+        x54 = x51[x8]
+        x55 = equality(x53, subtract(x1, ONE))
+        x56 = equality(x54, ONE)
+        x57 = both(x55, x56)
+        if not x57:
             continue
         return {"input": x25, "output": x8}

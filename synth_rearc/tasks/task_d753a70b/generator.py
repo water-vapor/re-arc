@@ -51,7 +51,6 @@ def _reserved_box_d753a70b(
 
 
 def _sample_center_d753a70b(
-    value: Integer,
     radius: Integer,
     dims: IntegerTuple,
     diff_lb: float,
@@ -75,8 +74,6 @@ def _sample_center_d753a70b(
             elif side == "bottom":
                 ci = randint(max(ZERO, subtract(h, add(radius, ONE))), subtract(h, ONE))
                 cj = randint(ZERO, subtract(w, ONE))
-                if value == FIVE and radius == ONE and ci == subtract(h, ONE):
-                    continue
                 if radius > ZERO and ci >= radius and ci <= subtract(subtract(h, ONE), radius) and cj >= radius and cj <= subtract(subtract(w, ONE), radius):
                     continue
             elif side == "left":
@@ -103,8 +100,6 @@ def _sample_center_d753a70b(
             else:
                 ci = randint(max(ZERO, subtract(h, add(radius, ONE))), subtract(h, ONE))
                 cj = randint(max(ZERO, subtract(w, add(radius, ONE))), subtract(w, ONE))
-            if value == FIVE and radius == ONE and ci == subtract(h, ONE):
-                continue
         return astuple(ci, cj)
     return None
 
@@ -118,7 +113,7 @@ def _place_component_d753a70b(
 ) -> tuple[Indices, Indices, Indices] | None:
     for _ in range(300):
         radius = _radius_d753a70b(value, diff_lb, diff_ub)
-        center = _sample_center_d753a70b(value, radius, dims, diff_lb, diff_ub)
+        center = _sample_center_d753a70b(radius, dims, diff_lb, diff_ub)
         if center is None:
             continue
         gi_patch = diamond_outline_d753a70b(center, radius, dims)

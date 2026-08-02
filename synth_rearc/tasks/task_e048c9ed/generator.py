@@ -9,9 +9,20 @@ def _bar_digit_e048c9ed(
     lengths: tuple[Integer, ...],
     length: Integer,
 ) -> Integer:
-    if length == FIVE and set(lengths) == {TWO, FIVE}:
-        return NINE
-    return ((length - ONE) * (length - ONE)) % 10
+    ordered_lengths = dedupe(order(lengths, identity))
+    repeated_lengths = tuple(
+        candidate for candidate in ordered_lengths if lengths.count(candidate) > ONE
+    )
+    singleton_lengths = tuple(
+        candidate for candidate in ordered_lengths if lengths.count(candidate) == ONE
+    )
+    digit_base = add(ordered_lengths.index(length), ONE)
+    if size(repeated_lengths) == ONE and size(singleton_lengths) == ONE:
+        outlier_length = first(singleton_lengths)
+        length_gap = abs(subtract(outlier_length, first(repeated_lengths)))
+        if length == outlier_length and greater(length_gap, ONE):
+            digit_base = length_gap
+    return multiply(digit_base, digit_base) % TEN
 
 
 def _row_layout_e048c9ed(
@@ -34,11 +45,11 @@ def _pick_lengths_e048c9ed(
     diff_ub: float,
 ) -> tuple[Integer, ...]:
     ndistinct = unifint(diff_lb, diff_ub, (ONE, min(FOUR, nrows)))
-    distinct_lengths = [TWO]
-    extras = [THREE, FOUR, FIVE]
-    shuffle(extras)
-    distinct_lengths.extend(extras[: ndistinct - ONE])
-    distinct_lengths = sorted(distinct_lengths)
+    distinct_lengths = list(interval(TWO, add(TWO, ndistinct), ONE))
+    if ndistinct == TWO and nrows >= THREE and choice((T, F, F)):
+        lengths = [TWO] * (nrows - ONE) + [choice((FOUR, FIVE))]
+        shuffle(lengths)
+        return tuple(lengths)
     lengths = list(distinct_lengths)
     while len(lengths) < nrows:
         lengths.append(choice((distinct_lengths[ZERO],) * THREE + tuple(distinct_lengths)))

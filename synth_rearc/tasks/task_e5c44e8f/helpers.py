@@ -8,7 +8,7 @@ def spiral_path_e5c44e8f(
     h, w = dims
     i, j = start
     maxdist = max(i, h - 1 - i, j, w - 1 - j)
-    ncycles = (maxdist + 1) // 2
+    ncycles = maxdist // 2 + 1
     run = TWO
     directions = (UP, RIGHT, DOWN, LEFT)
     cells = []

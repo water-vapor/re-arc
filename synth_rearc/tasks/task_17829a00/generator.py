@@ -67,8 +67,6 @@ def _place_output_components_17829a00(
             js = list(range(subtract(w, mw) + ONE))
             shuffle(js)
             for j in js:
-                if both(flip(top_side), both(equality(mw, ONE), both(greater(mh, TWO), equality(j, subtract(w, ONE))))):
-                    continue
                 patch = shift(motif, (base_i, j))
                 if len(intersection(patch, blocked)) > ZERO:
                     continue

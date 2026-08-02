@@ -4,52 +4,46 @@ from synth_rearc.core import *
 
 
 def verify_b942fd60(I: Grid) -> Grid:
-    x0 = shape(I)
-    x1 = x0[0]
-    x2 = first(ofcolor(I, TWO))
-    x3 = I
-    x4 = [(ZERO, ZERO, x2, RIGHT)]
-    x5 = ONE
-    x6 = set()
-    x7 = {x2: x2}
-    while len(x4) > ZERO:
-        x8, _, x9, x10 = heapq.heappop(x4)
-        x11 = (x9, x10)
-        if x11 in x6:
+    x0 = first(ofcolor(I, TWO))
+    x1 = I
+    x2 = [(ZERO, ZERO, x0, RIGHT)]
+    x3 = ONE
+    x4 = set()
+    x5 = {x0: x0}
+    while len(x2) > ZERO:
+        x6, _, x7, x8 = heapq.heappop(x2)
+        x9 = (x7, x8)
+        if x9 in x4:
             continue
-        x6.add(x11)
-        x12 = x9
-        x13 = ZERO
+        x4.add(x9)
+        x10 = x7
+        x11 = ZERO
         while True:
-            x14 = add(x12, x10)
-            x15 = index(I, x14)
-            if equality(x15, ZERO):
-                x3 = fill(x3, TWO, initset(x14))
-                x12 = x14
-                x13 = increment(x13)
+            x12 = add(x10, x8)
+            x13 = index(I, x12)
+            if equality(x13, ZERO):
+                x1 = fill(x1, TWO, initset(x12))
+                x10 = x12
+                x11 = increment(x11)
                 continue
-            x16 = x14 in x7 and equality(x7[x14], x12)
-            x17 = both(x16, equality(x13, ZERO))
-            if x17:
-                x12 = x14
+            x14 = x12 in x5 and equality(x5[x12], x10)
+            x15 = both(x14, equality(x11, ZERO))
+            if x15:
+                x10 = x12
                 continue
             break
-        x18 = equality(x10, DOWN)
-        x19 = equality(x15, SEVEN)
-        x20 = equality(x14[0], decrement(x1))
-        x21 = both(x18, both(x19, x20))
-        if x15 is None or contained(x14, x7) or x21:
+        if x13 is None or contained(x12, x5):
             continue
-        x22 = add(x8, x13)
-        x7[x14] = x12
-        if equality(x10[0], ZERO):
-            heapq.heappush(x4, (x22, x5, x12, UP))
-            x5 = increment(x5)
-            heapq.heappush(x4, (x22, x5, x12, DOWN))
-            x5 = increment(x5)
+        x16 = add(x6, x11)
+        x5[x12] = x10
+        if equality(x8[0], ZERO):
+            heapq.heappush(x2, (x16, x3, x10, UP))
+            x3 = increment(x3)
+            heapq.heappush(x2, (x16, x3, x10, DOWN))
+            x3 = increment(x3)
         else:
-            heapq.heappush(x4, (x22, x5, x12, LEFT))
-            x5 = increment(x5)
-            heapq.heappush(x4, (x22, x5, x12, RIGHT))
-            x5 = increment(x5)
-    return x3
+            heapq.heappush(x2, (x16, x3, x10, LEFT))
+            x3 = increment(x3)
+            heapq.heappush(x2, (x16, x3, x10, RIGHT))
+            x3 = increment(x3)
+    return x1

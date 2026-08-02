@@ -1,50 +1,6 @@
 from synth_rearc.core import *
 
 
-OFFICIAL_ONES_E1D2900E = frozenset(
-    {
-        (0, 18),
-        (4, 2),
-        (4, 11),
-        (4, 14),
-        (4, 24),
-        (7, 5),
-        (9, 18),
-        (10, 10),
-        (10, 26),
-        (15, 18),
-        (16, 6),
-        (16, 20),
-        (23, 13),
-        (28, 21),
-    }
-)
-
-OFFICIAL_TWOS_E1D2900E = frozenset(
-    {
-        (3, 5),
-        (3, 6),
-        (4, 5),
-        (4, 6),
-        (4, 18),
-        (4, 19),
-        (5, 18),
-        (5, 19),
-        (15, 10),
-        (15, 11),
-        (16, 10),
-        (16, 11),
-        (22, 20),
-        (22, 21),
-        (23, 20),
-        (23, 21),
-    }
-)
-
-OFFICIAL_RESTORE_E1D2900E = frozenset({(23, 13)})
-OFFICIAL_CLEAR_E1D2900E = frozenset({(23, 19)})
-
-
 def _candidate_target_e1d2900e(
     loc: IntegerTuple,
     block: Object,
@@ -98,11 +54,4 @@ def verify_e1d2900e(I: Grid) -> Grid:
     x7 = canvas(ZERO, shape(I))
     x8 = fill(x7, TWO, x4)
     x9 = fill(x8, ONE, x6)
-    x10 = equality(shape(I), (30, 30))
-    x11 = equality(x3, OFFICIAL_ONES_E1D2900E)
-    x12 = equality(x4, OFFICIAL_TWOS_E1D2900E)
-    x13 = both(x10, both(x11, x12))
-    x14 = fill(x9, ZERO, OFFICIAL_CLEAR_E1D2900E)
-    x15 = fill(x14, ONE, OFFICIAL_RESTORE_E1D2900E)
-    x16 = branch(x13, x15, x9)
-    return x16
+    return x9

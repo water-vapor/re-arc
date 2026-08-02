@@ -27,5 +27,9 @@ def verify_aee291af(I: Grid) -> Grid:
                 if x19:
                     x2.append(x8)
     x20 = tuple(x2)
-    x21 = leastcommon(x20)
-    return x21
+    x21 = apply(height, x20)
+    x22 = maximum(x21)
+    x23 = matcher(height, x22)
+    x24 = sfilter(x20, x23)
+    x25 = leastcommon(x24)
+    return x25

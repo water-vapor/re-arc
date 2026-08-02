@@ -65,10 +65,24 @@ def _assigned_target_1b8318e3(
         x7 = x2 - ONE if j < x2 else x3 + ONE
     x8 = x6 in (x0 - ONE, x1 + ONE)
     x9 = x7 in (x2 - ONE, x3 + ONE)
-    if x4 > x5 and j < x2 and x8 and x9:
-        x10 = any((x11, x2 - ONE) in occupied for x11 in range(x0 - ONE, x1 + TWO))
-        if x10:
-            x7 += ONE
+    if x4 > x5 and x8 and x9:
+        if j < x2 - ONE:
+            x10 = any((x11, x2 - ONE) in occupied for x11 in range(x0 - ONE, x1 + TWO))
+            if x10:
+                x7 += ONE
+        elif j > x3 + ONE:
+            x10 = any((x11, x3 + ONE) in occupied for x11 in range(x0 - ONE, x1 + TWO))
+            if x10:
+                x7 -= ONE
+    elif x5 > x4 and x8 and x9:
+        if i < x0 - ONE:
+            x10 = any((x0 - ONE, x11) in occupied for x11 in range(x2 - ONE, x3 + TWO))
+            if x10:
+                x6 += ONE
+        elif i > x1 + ONE:
+            x10 = any((x1 + ONE, x11) in occupied for x11 in range(x2 - ONE, x3 + TWO))
+            if x10:
+                x6 -= ONE
     return (x6, x7)
 
 

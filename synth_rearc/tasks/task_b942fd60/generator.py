@@ -109,10 +109,7 @@ def generate_b942fd60(
                 segment, endpoint, obstacle = options[choice_idx]
                 path = combine(path, frozenset(segment))
                 occupied = combine(occupied, combine(frozenset(segment), initset(obstacle)))
-                obstacle_colors = _OBSTACLE_COLORS_B942FD60
-                if equality(direction, DOWN) and equality(obstacle[0], h - ONE):
-                    obstacle_colors = (THREE, SIX, EIGHT)
-                obstacles[obstacle] = choice(obstacle_colors)
+                obstacles[obstacle] = choice(_OBSTACLE_COLORS_B942FD60)
                 branch_count = increment(branch_count)
                 turns = list(_perpendiculars_b942fd60(direction))
                 shuffle(turns)

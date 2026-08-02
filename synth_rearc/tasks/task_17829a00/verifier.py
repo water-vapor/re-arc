@@ -23,12 +23,4 @@ def verify_17829a00(I: Grid) -> Grid:
             x15 = subtract(subtract(x0, TWO), x13)
             x16 = shift(x10, (x15, ZERO))
             x9 = paint(x9, x16)
-            x17 = both(vline(x10), equality(rightmost(x10), subtract(x1, ONE)))
-            x18 = greater(height(x10), TWO)
-            if both(x17, x18):
-                x19 = connect(
-                    (uppermost(x10), subtract(x1, ONE)),
-                    (subtract(x0, TWO), subtract(x1, ONE)),
-                )
-                x9 = fill(x9, x4, x19)
     return x9

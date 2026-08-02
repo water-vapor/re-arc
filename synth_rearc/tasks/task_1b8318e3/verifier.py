@@ -32,10 +32,24 @@ def _preferred_target_1b8318e3(
         x7 = decrement(x2) if j < x2 else increment(x3)
     x8 = x6 in (decrement(x0), increment(x1))
     x9 = x7 in (decrement(x2), increment(x3))
-    if both(greater(x4, x5), j < x2) and both(x8, x9):
-        x10 = any((x11, decrement(x2)) in occupied for x11 in range(decrement(x0), increment(x1) + ONE))
-        if x10:
-            x7 = increment(x7)
+    if both(greater(x4, x5), both(x8, x9)):
+        if j < decrement(x2):
+            x10 = any((x11, decrement(x2)) in occupied for x11 in range(decrement(x0), increment(x1) + ONE))
+            if x10:
+                x7 = increment(x7)
+        elif j > increment(x3):
+            x10 = any((x11, increment(x3)) in occupied for x11 in range(decrement(x0), increment(x1) + ONE))
+            if x10:
+                x7 = decrement(x7)
+    elif both(greater(x5, x4), both(x8, x9)):
+        if i < decrement(x0):
+            x10 = any((decrement(x0), x11) in occupied for x11 in range(decrement(x2), increment(x3) + ONE))
+            if x10:
+                x6 = increment(x6)
+        elif i > increment(x1):
+            x10 = any((increment(x1), x11) in occupied for x11 in range(decrement(x2), increment(x3) + ONE))
+            if x10:
+                x6 = decrement(x6)
     return (x6, x7)
 
 

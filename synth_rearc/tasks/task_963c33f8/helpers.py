@@ -17,10 +17,6 @@ def patch_963c33f8(*cells: tuple[int, int]) -> Indices:
     return frozenset(cells)
 
 
-def shift_patch_963c33f8(patch: Indices, offset: tuple[int, int]) -> Indices:
-    return frozenset((i + offset[ZERO], j + offset[ONE]) for i, j in patch)
-
-
 def paint_patch_963c33f8(grid: Grid, patch: Indices) -> Grid:
     return paint(grid, recolor(FG_963C33F8, patch))
 
